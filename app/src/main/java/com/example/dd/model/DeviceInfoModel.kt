@@ -2,8 +2,8 @@ package com.example.dd.model
 
 data class DeviceInfoModel(
     val batteryHealth: String,
-    val availableMemory: String,
-    val totalMemory: String,
+    val availableMemory: Long,
+    val totalMemory: Long,
     val deviceModel: String,
     val deviceBrand: String,
     val deviceBoard: String,
