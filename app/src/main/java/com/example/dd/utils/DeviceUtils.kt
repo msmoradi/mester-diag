@@ -75,4 +75,13 @@ class DeviceUtils @Inject constructor(
         )
     }
 
+    suspend fun checkPort(): Boolean = withContext(Dispatchers.IO) {
+        val intentFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        val batteryStatus: Intent? = context.registerReceiver(null, intentFilter)
+        when (batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) ?: 0) {
+            1, 2 -> true
+            else -> false
+        }
+    }
+
 }

@@ -15,4 +15,10 @@ class DeviceLocalDataSource @Inject constructor(
             deviceUtils.collectDeviceInfo()
         }
     }
+
+    suspend fun checkPort(): Boolean {
+        return withContext(Dispatchers.IO) {
+            deviceUtils.checkPort()
+        }
+    }
 }

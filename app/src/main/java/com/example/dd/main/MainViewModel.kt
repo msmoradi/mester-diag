@@ -175,6 +175,16 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun onCheckPortClicked() {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    portState = deviceLocalDataSource.checkPort()
+                )
+            }
+        }
+    }
+
     override fun onCleared() {
         stopPlaying()
         super.onCleared()
@@ -190,6 +200,7 @@ sealed interface UiEvent {
 
 data class UiState(
     val audioId: String = "",
+    val portState: Boolean = false,
     val loading: Boolean = false,
     val data: CreateResponseModel? = null,
     val ticket: String = "",

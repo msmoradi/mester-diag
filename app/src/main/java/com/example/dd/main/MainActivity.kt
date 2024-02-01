@@ -89,6 +89,8 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("port") {
                         PortScreen(
+                            onCheckPortClicked = mainViewModel::onCheckPortClicked,
+                            portState = if (uiState.portState) "وصله" else "وصل نیست",
                             onNextClicked = {
                                 navController.navigate("camera")
                             }
