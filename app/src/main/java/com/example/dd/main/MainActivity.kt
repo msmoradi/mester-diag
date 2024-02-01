@@ -80,9 +80,11 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("voice") {
                         VoiceScreen(
-                            onNextClicked = {
-                                navController.navigate("port")
-                            }
+                            onNextClicked = mainViewModel::uploadAudio,
+                            onStartRecording = mainViewModel::startRecording,
+                            onStopRecording = mainViewModel::stopRecording,
+                            onStartPlaying = mainViewModel::startPlaying,
+                            onStopPlaying = mainViewModel::stopPlaying,
                         )
                     }
                     composable("port") {

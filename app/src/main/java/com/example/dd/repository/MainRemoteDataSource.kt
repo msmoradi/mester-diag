@@ -8,6 +8,10 @@ import com.example.dd.model.SubmitResponseModel
 import com.example.dd.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class MainRemoteDataSource @Inject constructor(
@@ -36,4 +40,9 @@ class MainRemoteDataSource @Inject constructor(
         val requestModel = SubmitRequestModel(ticket)
         apiService.finish(requestModel)
     }
+
+    suspend fun uploadAudio(audioFilePath: MultipartBody.Part) = withContext(Dispatchers.IO) {
+        apiService.uploadAudio(audioFilePath)
+    }
+
 }
