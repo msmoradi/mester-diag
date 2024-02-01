@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build
+import android.os.Environment
+import android.os.StatFs
 import com.example.dd.model.DeviceInfoModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +67,7 @@ class DeviceUtils @Inject constructor(
             batteryHealth = getBatteryHealth(),
             availableMemory = getAvailableMemory(),
             totalMemory = getTotalMemory(),
+            totalInternalMemory = romMemory(),
             deviceModel = Build.MODEL,
             deviceBrand = Build.BRAND,
             deviceBoard = Build.BOARD,
@@ -73,6 +76,12 @@ class DeviceUtils @Inject constructor(
             deviceHardware = Build.HARDWARE,
             osVersion = Build.VERSION.RELEASE,
         )
+    }
+
+    private fun romMemory(): Long {
+        val path = Environment.getDataDirectory()
+        val stat = StatFs(path.path)
+        return stat.blockSizeLong * stat.blockCountLong
     }
 
     suspend fun checkPort(): Boolean = withContext(Dispatchers.IO) {

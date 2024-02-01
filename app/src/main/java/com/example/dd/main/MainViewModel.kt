@@ -59,7 +59,12 @@ class MainViewModel @Inject constructor(
             }
 
             try {
-                val deviceInfoModel: DeviceInfoModel = deviceLocalDataSource.collectDeviceInfo()
+                val deviceInfoModel: DeviceInfoModel =
+                    deviceLocalDataSource.collectDeviceInfo().copy(
+                        isPortHealthy = _uiState.value.portState,
+                        micId = _uiState.value.audioId,
+                        cameraId = _uiState.value.audioId,
+                    )
                 val result = mainRemoteDataSource.sendData(
                     deviceInfoModel,
                     ticket
@@ -70,7 +75,7 @@ class MainViewModel @Inject constructor(
                         loading = false
                     )
                 }
-                _uiEvent.emit(UiEvent.OpenDeeplink("checkOut"))
+                _uiEvent.emit(UiEvent.Navigate("checkOut"))
             } catch (e: Exception) {
                 _uiEvent.emit(UiEvent.ShowMessage(e.message.orEmpty()))
                 _uiState.update {
@@ -91,7 +96,7 @@ class MainViewModel @Inject constructor(
             }
 
             try {
-                val result = mainRemoteDataSource.finish(ticket)
+                val result = mainRemoteDataSource.submit(ticket)
 
                 _uiState.update {
                     it.copy(

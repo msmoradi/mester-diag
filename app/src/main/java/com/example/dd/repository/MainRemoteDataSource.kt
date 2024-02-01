@@ -8,10 +8,7 @@ import com.example.dd.model.SubmitResponseModel
 import com.example.dd.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 import javax.inject.Inject
 
 class MainRemoteDataSource @Inject constructor(
@@ -24,6 +21,10 @@ class MainRemoteDataSource @Inject constructor(
                 ticket = ticket,
                 batteryHealth = data.batteryHealth,
                 availableMemory = data.availableMemory,
+                isPortHealthy = data.isPortHealthy,
+                totalInternalMemory = data.totalInternalMemory,
+                micId = data.micId,
+                cameraId = data.cameraId,
                 totalMemory = data.totalMemory,
                 deviceModel = data.deviceModel,
                 deviceBrand = data.deviceBrand,
@@ -36,7 +37,7 @@ class MainRemoteDataSource @Inject constructor(
             apiService.sendData(requestModel)
         }
 
-    suspend fun finish(ticket: String): SubmitResponseModel = withContext(Dispatchers.IO) {
+    suspend fun submit(ticket: String): SubmitResponseModel = withContext(Dispatchers.IO) {
         val requestModel = SubmitRequestModel(ticket)
         apiService.finish(requestModel)
     }

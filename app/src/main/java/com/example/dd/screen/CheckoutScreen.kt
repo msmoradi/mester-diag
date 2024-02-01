@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +30,7 @@ fun CheckoutScreen(
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
+            modifier = Modifier.padding(vertical = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "توضیحات نهایی")
@@ -49,8 +50,10 @@ fun CheckoutScreen(
                     contentDescription = "Translated description of what the image contains"
                 )
                 ListItemView("batteryHealth", dataMap.batteryHealth)
-                ListItemView("availableMemory", dataMap.availableMemory)
-                ListItemView("totalMemory", dataMap.totalMemory)
+                ListItemView("availableMemory", dataMap.availableMemory.toString())
+                ListItemView("totalMemory", dataMap.totalMemory.toString())
+                ListItemView("isPortHealthy", dataMap.isPortHealthy.toString())
+                ListItemView("totalInternalMemory", dataMap.totalInternalMemory.toString())
                 ListItemView("deviceModel", dataMap.deviceModel)
                 ListItemView("deviceBrand", dataMap.deviceBrand)
                 ListItemView("deviceBoard", dataMap.deviceBoard)
