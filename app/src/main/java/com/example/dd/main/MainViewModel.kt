@@ -52,7 +52,7 @@ class MainViewModel @Inject constructor(
                         loading = false
                     )
                 }
-
+                _uiEvent.emit(UiEvent.OpenDeeplink("checkOut"))
             } catch (e: Exception) {
                 _uiEvent.emit(UiEvent.ShowMessage(e.message.orEmpty()))
                 _uiState.update {
@@ -100,6 +100,7 @@ class MainViewModel @Inject constructor(
 sealed interface UiEvent {
     data class ShowMessage(val message: String) : UiEvent
     data class OpenDeeplink(val deepLink: String) : UiEvent
+    data class Navigate(val destination: String) : UiEvent
 }
 
 data class UiState(
